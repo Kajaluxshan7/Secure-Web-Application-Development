@@ -1,0 +1,50 @@
+body {
+    background-image: url('../Images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif; 
+}
+
+section {
+    text-align: center;
+    color: #fff;
+}
+
+.welcome-container {
+    background-color: rgba(0, 0, 0, 0.7); 
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 600px; 
+}
+
+.welcome-container h1 {
+    margin-bottom: 5px;
+    font-size: 32px; 
+}
+
+.welcome-container h4 {
+    margin-top: 5px;
+    font-size: 14px; 
+}
+
+.submit {
+    background-color: #e44d26; 
+    color: #fff;
+    padding: 15px 30px; 
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submit:hover {
+    background-color: #d03014;
+    transform: scale(1.05);
+}
