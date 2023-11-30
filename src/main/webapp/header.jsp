@@ -16,9 +16,9 @@
 <body>
 
 <div class="navbar">
-            <img src="${pageContext.request.contextPath}/Images/DriveMate.png" alt="Logo" class="logo">
 
-`		   <ul class="nav-links">
+            <img src="<%= request.getContextPath() %>/Images/DriveMate.png" alt="Logo" class="logo">
+		   	<ul class="nav-links">
             <li><a class="nav-link" href="profile.jsp">Profile</a></li>
             <li><a class="nav-link" href="register.jsp">Register</a></li>
             <li><a class="nav-link" href="reservations.jsp">Reservations</a></li>

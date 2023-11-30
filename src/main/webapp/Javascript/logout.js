@@ -27,24 +27,3 @@ function handleLogout() {
     
     return false;
 }
-
-// check for sessionStorage value on page load
-window.onload = function() {
-    if (sessionStorage.getItem("loggedIn") !== "true") {
-        // redirect to the home page if not logged in
-        window.location.href = "<%= request.getContextPath() %>/index.jsp";
-    }
-
-    // disable back and forward caching to prevent navigation to logged-in pages
-    window.onpageshow = function (event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    };
-
-    // manage history to prevent navigating to logged-in pages using browser buttons
-    window.history.pushState(null, null, "<%= request.getContextPath() %>/index.jsp");
-    window.addEventListener('popstate', function () {
-    window.history.pushState(null, null, "<%= request.getContextPath() %>/index.jsp");
-    });
-};
