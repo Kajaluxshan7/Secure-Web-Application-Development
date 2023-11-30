@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%    
     String sessionState = (String) session.getAttribute("sessionState");
@@ -15,10 +14,9 @@
 </head>
 <body>
 
-<div class="navbar">
-
-            <img src="<%= request.getContextPath() %>/Images/DriveMate.png" alt="Logo" class="logo">
-		   	<ul class="nav-links">
+    <div class="navbar">
+        <img src="<%= request.getContextPath() %>/Images/DriveMate.png" alt="Logo" class="logo">
+        <ul class="nav-links">
             <li><a class="nav-link" href="profile.jsp">Profile</a></li>
             <li><a class="nav-link" href="register.jsp">Register</a></li>
             <li><a class="nav-link" href="reservations.jsp">Reservations</a></li>
@@ -26,13 +24,13 @@
         </ul>
 
         <h1>DriveMate</h1>
-<form id="logout-form" action="<%= request.getContextPath() %>/logoutServlet" method="POST">
-    <input type="hidden" id="client-id" name="client_id" value="<%= client_id %>">
-    <input type="hidden" id="post-logout-redirect-uri" name="post_logout_redirect_uri"
-        value="<%= request.getContextPath() %>/index.jsp">
-    <input type="hidden" id="state" name="state" value="<%= sessionState %>">
-    <button id="logout-btn" type="button" onclick="handleLogout(); return false;">Logout</button>
-</form>
-</div>
+        <form id="logout-form" action="<%= request.getContextPath() %>/logoutServlet" method="POST">
+            <input type="hidden" id="client-id" name="client_id" value="<%= client_id %>">
+            <input type="hidden" id="post-logout-redirect-uri" name="post_logout_redirect_uri"
+                value="<%= request.getContextPath() %>/index.jsp">
+            <input type="hidden" id="state" name="state" value="<%= sessionState %>">
+            <button id="logout-btn" type="button" onclick="handleLogout(); return false;">Logout</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -15,7 +15,7 @@ public class DatabaseConnection {
         //  set properties in the code
         properties.setProperty("db.url", "jdbc:mysql://localhost:3306/isec_assessment2");
         properties.setProperty("db.username", "root");
-        properties.setProperty("db.password", "");
+        properties.setProperty("db.password", "Kajan2000#");
         properties.setProperty("db.driver", "com.mysql.cj.jdbc.Driver");
     }
 

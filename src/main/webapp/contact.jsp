@@ -2,7 +2,8 @@
 <%@ page import="com.services.*" %>
 <%
 if (!AuthUtil.isAuthenticated(request)) {
-    response.sendRedirect("index.jsp"); }
+    response.sendRedirect("index.jsp");
+}
 %>
 
 <!DOCTYPE html>
@@ -19,22 +20,23 @@ if (!AuthUtil.isAuthenticated(request)) {
 
     <div class="container">
         <h2>Contact Us</h2>
-         <%
-			String status = request.getParameter("status");
-			
-			if ("success".equalsIgnoreCase(status)) {
-			%>
-			    <div style="color: green; text-align: center;">
-			        Your message has been sent successfully!
-			    </div>
-			<%
-			} else if ("error".equalsIgnoreCase(status)) {
-			%>
-			    <div style="color: red; text-align: center;">
-			        There was an error sending your message. Please try again.
-			    </div>
-			<%
-				}%>       
+        <%
+        String status = request.getParameter("status");
+
+        if ("success".equalsIgnoreCase(status)) {
+        %>
+        <div style="color: green; text-align: center;">
+            Your message has been sent successfully!
+        </div>
+        <%
+        } else if ("error".equalsIgnoreCase(status)) {
+        %>
+        <div style="color: red; text-align: center;">
+            There was an error sending your message. Please try again.
+        </div>
+        <%
+        }
+        %>
         <form action="processingContactForm.jsp" method="post">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>

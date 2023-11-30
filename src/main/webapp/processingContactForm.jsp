@@ -14,7 +14,7 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
 
     // set the subject of the email
     String subject = "Contact Form Submission";
-    
+
     // validate email format
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     if (!Pattern.matches(emailRegex, email)) {

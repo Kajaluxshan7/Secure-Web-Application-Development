@@ -87,3 +87,13 @@ button:hover {
     color: #ff3333;
     margin-top: 10px;
 }
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+

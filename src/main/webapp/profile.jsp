@@ -3,71 +3,69 @@
 <%@ page import="org.json.JSONObject" %>
 
 <%
-    // extract access_token & id_token from session attribute
-        String accessToken = (String) request.getSession().getAttribute("access_token");
-        String idToken = (String) request.getSession().getAttribute("id_token");
+// extract access_token & id_token from session attribute
+String accessToken = (String) request.getSession().getAttribute("access_token");
+String idToken = (String) request.getSession().getAttribute("id_token");
 
-    // check the access token
-    if (accessToken != null && !accessToken.isEmpty()) {
-  
-        // read properties
-		Properties props = new Properties();
-		InputStream input = getServletContext().getResourceAsStream("/properties/application.properties");
-		props.load(input);
-		
-		String userinfoEndpoint = props.getProperty("userinfo_endpoint");
-		String introspectionEndpoint = props.getProperty("introspection_endpoint");
+// check the access token
+if (accessToken != null && !accessToken.isEmpty()) {
+    // read properties
+    Properties props = new Properties();
+    InputStream input = getServletContext().getResourceAsStream("/properties/application.properties");
+    props.load(input);
 
-        try {
-            // URL object for the userinfo endpoint
-            URL userinfoUrl = new URL(userinfoEndpoint);
+    String userinfoEndpoint = props.getProperty("userinfo_endpoint");
+    String introspectionEndpoint = props.getProperty("introspection_endpoint");
 
-            // open a connection to the userinfo endpoint
-            HttpURLConnection userinfoConnection = (HttpURLConnection) userinfoUrl.openConnection();
+    try {
+        // URL object for the userinfo endpoint
+        URL userinfoUrl = new URL(userinfoEndpoint);
 
-            // request method to GET
-            userinfoConnection.setRequestMethod("GET");
+        // open a connection to the userinfo endpoint
+        HttpURLConnection userinfoConnection = (HttpURLConnection) userinfoUrl.openConnection();
 
-            // authorization header with the access token
-            userinfoConnection.setRequestProperty("Authorization", "Bearer " + accessToken);
+        // request method to GET
+        userinfoConnection.setRequestMethod("GET");
 
-            // get response code from the userinfo endpoint
-            int userinfoResponseCode = userinfoConnection.getResponseCode();
+        // authorization header with the access token
+        userinfoConnection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
-            // read response data from the userinfo endpoint
-            try (BufferedReader userinfoReader = new BufferedReader(new InputStreamReader(userinfoConnection.getInputStream()))) {
-                String userinfoInputLine;
-                StringBuilder userinfoResponse = new StringBuilder();
+        // get response code from the userinfo endpoint
+        int userinfoResponseCode = userinfoConnection.getResponseCode();
 
-                while ((userinfoInputLine = userinfoReader.readLine()) != null) {
-                    userinfoResponse.append(userinfoInputLine);
-                }
+        // read response data from the userinfo endpoint
+        try (BufferedReader userinfoReader = new BufferedReader(new InputStreamReader(userinfoConnection.getInputStream()))) {
+            String userinfoInputLine;
+            StringBuilder userinfoResponse = new StringBuilder();
 
-                // parse the userinfo response data as JSON
-                JSONObject userinfoJson = new JSONObject(userinfoResponse.toString());
+            while ((userinfoInputLine = userinfoReader.readLine()) != null) {
+                userinfoResponse.append(userinfoInputLine);
+            }
 
-                // extract user information
-                String username = userinfoJson.optString("username");
-                String name = userinfoJson.optString("given_name");
-                String email = userinfoJson.optString("email");
-                
-                String contactNumber = userinfoJson.optString("phone_number");
-                String lastname = userinfoJson.optString("family_name");
-                JSONObject addressObject = userinfoJson.optJSONObject("address");
+            // parse the userinfo response data as JSON
+            JSONObject userinfoJson = new JSONObject(userinfoResponse.toString());
 
-                // extract the "country" property from the "address" object
-                String country = (addressObject != null) ? addressObject.optString("country") : "";
-                
-                session.setAttribute("username", username);
+            // extract user information
+            String username = userinfoJson.optString("username");
+            String name = userinfoJson.optString("given_name");
+            String email = userinfoJson.optString("email");
+
+            String contactNumber = userinfoJson.optString("phone_number");
+            String lastname = userinfoJson.optString("family_name");
+            JSONObject addressObject = userinfoJson.optJSONObject("address");
+
+            // extract the "country" property from the "address" object
+            String country = (addressObject != null) ? addressObject.optString("country") : "";
+
+            session.setAttribute("username", username);
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/profile.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/profile.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-
 </head>
 <body>
     <div class="profile-container">
@@ -104,14 +102,12 @@
 </body>
 </html>
 
-
 <%
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    } else {
-        // case where the access token is not present
-         response.sendRedirect("index.jsp");
+    } catch (IOException e) {
+        e.printStackTrace();
     }
-%>
+} else {
+    // case where the access token is not present
+    response.sendRedirect("index.jsp");
+}%>

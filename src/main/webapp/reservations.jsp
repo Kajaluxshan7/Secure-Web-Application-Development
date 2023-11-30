@@ -31,17 +31,19 @@ try {
 <head>
     <meta charset="ISO-8859-1">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-   	<link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/reservation.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/reservation.css">
     <title>Reservations</title>
 </head>
 <body>
-<script type="text/javascript" src="Javascript/reservation.js"></script>
+    <script type="text/javascript" src="Javascript/reservation.js"></script>
     <section id="history">
-    
- <!-- Future Reservations -->
+        <!-- Future Reservations -->
         <div class="future" id="future">
             <h2 id="futureTableName">Future Reservations</h2>
             <br>
+            <%
+            if (futureReservations != null && !futureReservations.isEmpty()) {
+            %>
             <table>
                 <thead>
                     <tr>
@@ -57,12 +59,11 @@ try {
                 </thead>
                 <tbody>
                     <%
-                    if (futureReservations != null) {
-                        for (Reservation reservation : futureReservations) {
-                            LocalDateTime dateTime = reservation.getDateTime();
-                            if (dateTime.isBefore(LocalDateTime.now())) {
-                                continue;
-                            }
+                    for (Reservation reservation : futureReservations) {
+                        LocalDateTime dateTime = reservation.getDateTime();
+                        if (dateTime.isBefore(LocalDateTime.now())) {
+                            continue;
+                        }
                     %>
                     <tr>
                         <td><%= reservation.getBookingId() %></td>
@@ -75,13 +76,19 @@ try {
                         <td><button onclick="showConfirmationPopup('<%= reservation.getBookingId() %>');" class="cancel">Cancel</button></td>
                     </tr>
                     <%
-                        }
                     }
                     %>
                 </tbody>
             </table>
-        </div>    
-    
+            <%
+            } else {
+            %>
+            <p>No upcoming reservations.</p>
+            <%
+            }
+            %>
+        </div>
+
         <!-- Past Reservations -->
         <div class="past" id="past">
             <h2 id="pastTableName">Past Reservations</h2>
@@ -118,21 +125,21 @@ try {
                         <td><%= reservation.getMessage() %></td>
                     </tr>
                     <%
-                        }
+                    }
                     }
                     %>
                 </tbody>
             </table>
         </div>
-<!-- Confirmation Popup HTML -->
-<div id="confirmationPopup" class="confirmation-popup">
-    <p>Cancel this reservation?</p>
-    <button class="yes" onclick="cancelReservation();">Yes</button>
-    <button class="no" onclick="hideConfirmationPopup();">No</button>
-    <!-- Hidden input to store the bookingId -->
-    <input type="hidden" id="bookingIdToCancel" value="">
-</div>
-</section>
+        <!-- Confirmation Popup HTML -->
+        <div id="confirmationPopup" class="confirmation-popup">
+            <p>Cancel this reservation?</p>
+            <button class="yes" onclick="cancelReservation();">Yes</button>
+            <button class="no" onclick="hideConfirmationPopup();">No</button>
+            <!-- Hidden input to store the bookingId -->
+            <input type="hidden" id="bookingIdToCancel" value="">
+        </div>
+    </section>
 </body>
 </html>
 <%
